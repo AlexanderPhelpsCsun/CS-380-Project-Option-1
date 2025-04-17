@@ -3,9 +3,10 @@
 
 import java.util.Scanner;
 /**
-Handles credits payments. CreditPayment class which will inherits from Payment class. 
-@author Alexander
-@version 0.8
+*Handles credits payments. CreditPayment class which will inherits from Payment class. 
+*
+*@author Alexander
+*@version 0.8
 */
 
 public class CreditPayment extends Payment {
@@ -20,17 +21,19 @@ public class CreditPayment extends Payment {
    
 
 /**
-Constructor that initliazes amount that must be payed and the isPaid flag is set to false
-@param Amount of money the transaction requires to complete passed as a Double
+*Constructor that initliazes amount that must be payed and the isPaid flag is set to false
+*
+*@param Amount of money the transaction requires to complete passed as a Double
 */
 
     public CreditPayment(double amount) {
         super(amount);
     }
 /**
-InputCredit will take the credit info and process it. It goes through System.in and System.out.
-@param none
-@return void
+*InputCredit will take the credit info and process it. It goes through System.in and System.out.
+*
+*@param none
+*@return void
 */
     public void inputCredit()
     {
@@ -45,10 +48,11 @@ InputCredit will take the credit info and process it. It goes through System.in 
 
 
 /**
-	The actual payment function which sets the Ispaid flag to true after the payment
-	@param Cost of transaction in double format
-	@return void
-    */
+*The actual payment function which sets the Ispaid flag to true after the payment
+
+*@param Cost of transaction in double format
+*@return void
+*/
     public void pay(double amount)
     {
         if(hasPaymentInfo == true)
@@ -63,8 +67,9 @@ InputCredit will take the credit info and process it. It goes through System.in 
 
 
 /**
-Used to check payment status for other classes/methods to determine if the user can be issued a ticket/confirmation yet
-@return true if payment is complete, return false if payment isn’t complete.
+*Used to check payment status for other classes/methods to determine if the user can be issued a ticket/confirmation yet
+
+*@return true if payment is complete, return false if payment isn’t complete.
 */
     public boolean getPaymentStatus()
     {

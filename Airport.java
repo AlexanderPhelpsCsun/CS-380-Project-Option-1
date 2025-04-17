@@ -1,35 +1,35 @@
 import java.util.ArrayList;
 
 /**
-*Airport class represents the airports that you can book flights too and from. Airport objects will keep a List of aircrafts that are present at the airport.
-
-*@Author Alexander
-*@Version 1.0
-*/
+ * Airport class represents the airports that you can book flights to and from.
+ * Airport objects keep a list of aircraft that are present at the airport.
+ * 
+ * @author Alexander
+ * @version 1.0
+ */
 public class Airport {
     String location;
     ArrayList<Aircraft> presentAircrafts = new ArrayList<>();
 
-/**
-*Adds an aircraft to the present aircrafts list
+    public Airport(String location) {
+        this.location = location; // <- fixed assignment
+    }
 
-*@param Aircraft object
-*@return void
-*/
-    void addAircraft(Aircraft aircraft)
-    {
+    /**
+     * Adds an aircraft to the present aircrafts list.
+     *
+     * @param aircraft the Aircraft object to add
+     */
+    public void addAircraft(Aircraft aircraft) {
         presentAircrafts.add(aircraft);
     }
-/**
-*Removes an aircraft from the present aircrafts list
 
-*@param Aircraft object
-*@return void
-*/
-
-    void removeAircraft(Aircraft aircraft)
-    {
+    /**
+     * Removes an aircraft from the present aircrafts list.
+     *
+     * @param aircraft the Aircraft object to remove
+     */
+    public void removeAircraft(Aircraft aircraft) {
         presentAircrafts.remove(aircraft);
     }
 }
-

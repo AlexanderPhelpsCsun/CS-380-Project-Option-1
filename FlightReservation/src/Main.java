@@ -16,6 +16,8 @@ public class Main {
 
         // Step 1: Connect to the database
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlightReservation", "root", "DELSCORCHO2@y"))
+        //Added { line below -AJP    
+        {
             System.out.println("Connected to the database.");
 
             while (true) {

@@ -14,8 +14,7 @@
  *
  * Data Structures:
  * - Uses primitive types and String to store flight data.
- */
-
+ *
 *@author Valerie Chavez
  */
 public class Flight {

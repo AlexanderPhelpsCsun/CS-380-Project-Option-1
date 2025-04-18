@@ -17,8 +17,7 @@
  *
  * Algorithms Used:
  * - None; this class is purely for data modeling.
- */
-
+ *
  * @author Valerie Chavez
  */
 public class Traveler {

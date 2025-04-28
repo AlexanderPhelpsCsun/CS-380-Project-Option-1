@@ -8,6 +8,12 @@ public class VermaAirApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(VermaAirApplication.class, args);
+		
+		var welcomeMessage = new WelcomeMessage();
+		System.out.println(welcomeMessage.getWelcomeMessage());
+		
+		
+		
 	}
 
 }

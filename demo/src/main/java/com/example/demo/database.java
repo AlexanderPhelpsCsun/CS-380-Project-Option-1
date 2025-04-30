@@ -11,4 +11,16 @@ public class database {
         public static void addAccount(Account account) {
             Accounts.add(account);
         }
+
+        public static Account findAccount(String email)
+        {
+            for(Account acc : Accounts)
+            {
+                if(acc.getEmail().equals(email))
+                {
+                    return acc;
+                }
+            }
+            return null;
+        }
 }

@@ -39,12 +39,10 @@
 </head>
 <body>
     <h1>Login</h1>
-    <form>
-        <label>Username:</label><br>
-        <input type="text" name="username"><br>
-        <label>Password:</label><br>
-        <input type="password" name="password"><br>
-        <input type="submit" value="Login">
+    <form action="/login" method="post">
+        <input type="text" name="email" placeholder="Email" required />
+        <input type="password" name="password" placeholder="Password" required />
+        <button type="submit">Log In</button>
     </form>
 </body>
 </html>

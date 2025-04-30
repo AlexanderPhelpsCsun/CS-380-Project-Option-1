@@ -24,6 +24,17 @@ public class database {
             return null;
         }
 
+        public static Flight getFlightbyID(int id)
+        {
+            for(Flight f : flights)
+            {
+                if(f.getFlightID() == id)
+                {
+                    return f;
+                }
+            }
+            return null;
+        }
 
 
 }

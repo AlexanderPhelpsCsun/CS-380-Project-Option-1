@@ -12,9 +12,10 @@
         <button type="submit" name="sort" value="departureTime">Sort by departure Time</button>
     </form>
 
-    <table border="1" >
+    <table border="1">
         <thead>
             <tr>
+                <th>Book</th>
                 <th>Flight ID</th>
                 <th>Flight Number</th>
                 <th>Origin</th>
@@ -26,6 +27,11 @@
         </thead>
         <tbody>
             <tr th:each="flight : ${flights}">
+                <td>
+                    <form th:action="@{/book/{id}(id=${flight.flightID})}" method="get">
+                        <button type="submit">Book</button>
+                    </form>
+                </td>
                 <td th:text="${flight.flightID}"></td>
                 <td th:text="${flight.flightNumber}"></td>
                 <td th:text="${flight.origin}"></td>
@@ -36,7 +42,6 @@
             </tr>
         </tbody>
     </table>
-
 
 
     <style>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDateTime;
@@ -38,7 +39,11 @@ public class FlightBookingController {
         return "book"; // renders book.html
     }
 
-    
+    @GetMapping("/book/{id}")
+    public String showBookingForm(@PathVariable("id") Long id, Model model) {
+    model.addAttribute("flightID", id);
+    return "payment"; // Thymeleaf template name: payment.html
+}
 
 
     @GetMapping("/login")
@@ -104,6 +109,21 @@ public class FlightBookingController {
             return "signup";
         }
     }
+
+    @PostMapping("/process-payment")
+public String processPayment(@RequestParam int flightID, Model model) {
+    Flight flight = database.getFlightbyID(flightID);
+    model.addAttribute("flight", flight);
+    return "confirmation"; // Thymeleaf view name
+}
+
+
+
+
+
+
+
+
 }
 
 

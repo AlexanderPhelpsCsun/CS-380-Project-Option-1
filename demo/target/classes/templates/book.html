@@ -1,8 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head><title>book.html</title>
-    <a href="/book">Book a Flight</a>
+<head><title>Avaliable Flights</title>
+    <h1>Book a Flight</h1>
+    <table border="1" >
+        <thead>
+            <tr>
+                <th>Flight ID</th>
+                <th>Flight Number</th>
+                <th>Origin</th>
+                <th>Destination</th>
+                <th>Seats Available</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="flight : ${flights}">
+                <td th:text="${flight.flightID}"></td>
+                <td th:text="${flight.flightNumber}"></td>
+                <td th:text="${flight.origin}"></td>
+                <td th:text="${flight.destination}"></td>
+                <td th:text="${flight.seatsAvail}"></td>
+                <td th:text="${flight.departureTime}"></td>
+                <td th:text="${flight.arrivalTime}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
     <style>
+        table 
+        {
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+        }
+        td {
+    padding: 10px;
+}
         body {
             font-family: Arial, sans-serif;
             background: #f0f8ff;
@@ -18,4 +54,4 @@
             color: #333;
         }
     </style>
-</head><body><h1>Book a Flight</h1><p>Use this page to search and book your flight.</p></body></html>
+</head><body><p>Use this page to search and book your flight.</p></body></html>

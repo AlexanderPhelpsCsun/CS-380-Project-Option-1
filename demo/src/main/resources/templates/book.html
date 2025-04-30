@@ -2,6 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><title>Avaliable Flights</title>
     <h1>Book a Flight</h1>
+    <form action="/book" method="get" style = "margin-bottom: 20px;">
+        <!-- Button to sort by destination -->
+        <button type="submit" name="sort" value="destination">Sort by Destination</button>
+        
+        <!-- Button to sort by origin -->
+        <button type="submit" name="sort" value="origin">Sort by Origin</button>
+        <button type="submit" name="sort" value="FlightID">Sort by Flight ID</button>
+        <button type="submit" name="sort" value="departureTime">Sort by departure Time</button>
+    </form>
+
     <table border="1" >
         <thead>
             <tr>

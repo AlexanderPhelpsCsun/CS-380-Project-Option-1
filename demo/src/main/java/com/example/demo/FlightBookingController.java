@@ -2,22 +2,38 @@ package com.example.demo;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 
 @Controller
 public class FlightBookingController {
-
+    List<Flight> flights = Flight.getAvailableFlights();
+    
+    
     @GetMapping("/book")
-    public String bookFlights(Model model) {
-        List<Flight> flights = Flight.getAvailableFlights();
+    public String bookFlights(@RequestParam(value = "sort", required = false) String sort, Model model) {
+
+        if ("destination".equalsIgnoreCase(sort)) {
+            flights.sort((f1, f2) -> f1.getDestination().compareToIgnoreCase(f2.getDestination()));
+        } else if ("origin".equalsIgnoreCase(sort)) {
+            flights.sort((f1, f2) -> f1.getOrigin().compareToIgnoreCase(f2.getOrigin()));
+        }
+        else if("flightID".equalsIgnoreCase(sort))
+        {
+            flights.sort((f1, f2) -> Integer.compare(f1.getFlightID(), f2.getFlightID()));
+        }
+       // else if("departureTime".equalsIgnoreCase(sort))
+        
+
         model.addAttribute("flights", flights);
         return "book"; // renders book.html
     }

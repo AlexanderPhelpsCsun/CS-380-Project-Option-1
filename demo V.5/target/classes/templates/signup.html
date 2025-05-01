@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up - Verma Airlines</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f8ff;
+            padding: 40px;
+            text-align: center;
+        }
+        h1 {
+            color: #003366;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+            margin-top: 20px;
+        }
+        input[type="text"], input[type="password"], input[type="email"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #005599;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sign Up</h1>
+    <form action="/signup" method="post">
+        <input name="email" placeholder="Email" required/><br>
+        <input name="name" placeholder="Name" required/><br>
+        <input name="password" placeholder="Password" type="password" required/>
+        <button type="submit">Sign Up</button>
+    </form>
+</body>
+</html>

@@ -14,10 +14,10 @@ public Booking(int id, int travelerId, int flightId){
 public int getId(){
     return id;
 }
-public int gettravelerId(){
+public int getTravelerId(){
     return travelerId;
 }
-public int getflightId() {
+public int getFlightId() {
     return flightId;
 
 }

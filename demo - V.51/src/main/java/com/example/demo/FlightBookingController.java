@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -13,15 +14,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 
 
 @Controller
 public class FlightBookingController {
+
     List<Flight> flights = FlightHelper.getAvailableFlights();
     
+    @PostMapping("/remove-flight")
+    public String removeFlight(@RequestParam("pflightID") int pflightID)
+    {
+        if(pflightID > flights.size())
+        {
+            return "redirect:/manager";
+        }
+
+        flights.remove(pflightID);
+        return "redirect:/manager";
+    }
+
+
+
+
+
     @GetMapping("/view")
         public String viewFlights(@RequestParam(value = "sort", required = false) String sort, Model model)
         {
@@ -70,14 +85,16 @@ public class FlightBookingController {
     }
 
     @GetMapping("/book/{id}")
-    public String showBookingForm(@PathVariable("id") Long id, Model model, HttpSession session) 
+    public String showBookingForm(@PathVariable("id") int id, Model model, HttpSession session) 
     {
+
         Boolean isLoggedIn = (Boolean) session.getAttribute("isLoggedIn");
 
         if(isLoggedIn == null || !isLoggedIn)
         {
             return "redirect:/login";
         }
+
 
         model.addAttribute("flightID", id);
         return "payment"; // Thymeleaf template name: payment.html
@@ -99,7 +116,7 @@ public class FlightBookingController {
         if (account == null) {
             model.addAttribute("error", "Account not found.");
             System.out.print("accountnow found\n");
-            return "login";  // Show the login page with error
+            return "login"; 
         }
     
         try {
@@ -154,11 +171,70 @@ public class FlightBookingController {
     }
 
     @PostMapping("/process-payment")
-public String processPayment(@RequestParam int flightID, Model model) {
+    public String processPayment(@RequestParam int flightID, Model model, HttpSession session) {
     Flight flight = database.getFlightbyID(flightID);
+    String userEmail = (String) session.getAttribute("userEmail");
+    Account account = database.findAccount(userEmail);
+
+    if (account != null) {
+
+        Flight selectedFlight = database.getFlightbyID(flightID);
+
+        account.setTickets(selectedFlight);  
+        database.addAccount(account); 
+        model.addAttribute("flight", selectedFlight);  
+        return "confirmation"; 
+
+
+
+
+    }
+
     model.addAttribute("flight", flight);
     return "confirmation"; // Thymeleaf view name
 }
+
+Manager manager = new Manager();
+int revenue = manager.showRevenue((ArrayList<Flight>) flights);
+@GetMapping("/manager")
+public String showManagerPage(Model model) {
+    
+    
+    model.addAttribute("revenue", revenue);
+    model.addAttribute("flights", flights); 
+    return "manager";
+}
+
+
+@PostMapping("/change-cost")
+public String changeCost(@RequestParam("flightID") int flightID,
+                         @RequestParam("newCost") int newCost) {
+    Manager manager = new Manager();
+    manager.changeCost((ArrayList<Flight>) flights, flightID, newCost);
+    return "redirect:/manager";
+}
+
+
+@GetMapping("/account")
+public String showAccountPage(HttpSession session, Model model) {
+    String email = (String) session.getAttribute("userEmail");
+    if (email == null) {
+        return "redirect:/login";
+    }
+
+    Account account = database.findAccount(email);
+    if (account == null) {
+        return "redirect:/login";
+    }
+
+    ArrayList<Flight> bookedFlight = account.getTickets();  
+
+    model.addAttribute("account", account);
+    model.addAttribute("flight", bookedFlight);
+    return "account"; // account.html
+}
+
+
 
 
 

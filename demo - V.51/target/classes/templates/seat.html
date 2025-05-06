@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    table {
+      border-collapse: collapse;
+    }
+    td {
+      padding: 1px;
+    }
+    button {
+      width: 40px;
+      height: 30px;
+      border: none;
+      cursor: default;
+    }
+    .green { background-color: green; color: white; cursor: pointer; }
+    .red { background-color: red; color: white; }
+    .white { background-color: white; color: black; }
+    .selected { background-color: blue; color: white; }
+  </style>
+</head>
+<body>
+  <table id="buttonTable"></table>
+
+  <script>
+    const table = document.getElementById("buttonTable");
+
+    for (let i = 0; i < 120; i++) {
+      const row = table.insertRow();
+      for (let j = 0; j < 7; j++) {
+        const cell = row.insertCell();
+        const btn = document.createElement("button");
+
+        if ([3].includes(j)) {
+          btn.className = "white";
+        } else {
+          if (Math.random() < 0.5) {
+            btn.className = "green";
+            btn.addEventListener("click", () => {
+              btn.classList.toggle("selected");
+            });
+          } else {
+            btn.className = "red";
+          }
+        }
+
+        cell.appendChild(btn);
+      }
+    }
+  </script>
+</body>
+</html>

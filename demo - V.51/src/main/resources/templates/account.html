@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Account Info</title>
+</head>
+<body>
+    <h1>Account Details</h1>
+    <p><strong>Name:</strong> <span th:text="${account.name}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${account.email}"></span></p>
+    <h3>Your Booked Flights</h3>
+    <div th:if="${account.tickets != null}">
+        <div th:each="flight : ${account.tickets}">
+            <div class="details">
+                <p><strong>Flight Number:</strong> <span th:text="${flight.flightNumber}"></span></p>
+                <p><strong>Origin:</strong> <span th:text="${flight.origin}"></span></p>
+                <p><strong>Destination:</strong> <span th:text="${flight.destination}"></span></p>
+                <p><strong>Departure:</strong> <span th:text="${flight.departureTime}"></span></p>
+                <p><strong>Arrival:</strong> <span th:text="${flight.arrivalTime}"></span></p>
+                <br>
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+</html>

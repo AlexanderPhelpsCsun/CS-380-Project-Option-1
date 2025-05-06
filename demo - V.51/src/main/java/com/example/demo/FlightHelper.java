@@ -113,4 +113,10 @@ public abstract class FlightHelper {
         
             return randomDate.format(formatter);
         }
+
+
+        public static void removeFlight(int flightID)
+        {
+
+        }
 }

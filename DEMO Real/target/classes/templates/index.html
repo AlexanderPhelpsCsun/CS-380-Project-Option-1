@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Reservation</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mediaqueries.css">
+    <link rel="icon" href="ico.png" type="image/x-icon">
+
+
+
+
+</head>
+<body>
+    <nav id="desktop-nav">
+        <div class="logo">Flight Reservation</div>
+        <div>
+            <ul class="nav-links">
+                <li><a href="#Login">Login</a></li>
+                <li><a href="#Our Owner">Our Owner</a></li>
+                <li><a href="#Reviews">Reviews</a></li>
+                <li><a href="#Contact">Contact</a></li>
+                <li><a href="/account" target="_blank">Account</a></li>
+
+            </ul>
+        </div>
+    </nav>
+<nav id="hamburger-nav">
+
+
+    <div class="logo">Flight Reservation</div> 
+    <div class="hamburger-menu">
+        <div class="hamburger-icon" onclick ="toggleMenu()">
+
+
+        <span></span>    
+        <span></span>    
+        <span></span>    
+
+
+
+
+        </div>
+        <div class="menu-links">
+            <li><a href="#Login" onclick="toggleMenu()">Login</a></li>
+            <li><a href="#Our Owner" onclick="toggleMenu()">Our Owner</a></li>
+            <li><a href="#Reviews" onclick="toggleMenu()">Reviews</a></li>
+            <li><a href="#Contact" onclick="toggleMenu()">Contact</a></li>
+            <li>Account</li>
+        </div>
+
+
+
+
+
+
+    </div>
+</nav>
+
+
+
+
+
+<section id="Part3rename" style="
+display: flex; 
+align-items: center;        /* vertical alignment */
+justify-content: center;    /* horizontal alignment */
+gap: 40px; 
+max-width: 1200px; 
+margin: auto;
+height: 80vh;"> 
+    <img src="logo2.png" alt="Verma airplane" style="height: 60vh;">
+    <div class="section__pic-containerzest">
+        <img src="logo.png" alt="Logjo" style="height: 150px;" />
+    <div class="section__text" style="font-size: 1.3em; margin-bottom: 10px;">
+        <h1 class="title" style="font-size: 1.8em;">Book</h1>
+        <div class="btn-container" style="display: flex; gap: 20px;">
+            <button class="btn btn-color-2" style="font-size: 1.1em; padding: 18px 30px; min-width: 180px;" 
+                onclick="window.open('/view', '_blank')">
+                View Flights
+            </button>
+            <button class="btn btn-color-2" style="font-size: 1.1em; padding: 18px 30px; min-width: 180px;" 
+        onclick="window.open('/book', '_blank')">
+    Book Flights
+</button>
+        </div>
+    </div>
+</section>
+
+
+<section id="Login" style="
+  display: flex;
+  align-items: center; /* vertical alignment */
+  justify-content: center; /* horizontal alignment */
+  height: 60vh;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+">
+  <div style="display: flex; align-items: center; gap: 2rem;">
+    <div class="section__pic-containerzest">
+      <img src="download.png" alt="Logjo" style="height: 30vh;" />
+    </div>
+    
+    <div class="section__text" style="font-size: 1.3em;">
+      <h1 class="title" style="font-size: 1.8em;">Login</h1>
+      <div class="btn-container" style="display: flex; gap: 20px; margin-top: 1rem;">
+        <button class="btn btn-color-2" style="font-size: 1.1em; padding: 18px 30px; min-width: 180px;" 
+          onclick="window.open('/signup', '_blank')">
+          Sign Up
+        </button>
+        <button class="btn btn-color-2" style="font-size: 1.1em; padding: 18px 30px; min-width: 180px;" 
+          onclick="window.open('/login', '_blank')">
+          Login
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section id="Our Owner" style = "padding: 20vh 0;">
+    <div style="text-align: center;">
+        
+        <img src="king1.png" alt="Goat" style = "height: 600px;"/>
+        <h2>"I started this flight company just to teach gravity who's boss"</h2>
+        <h1 class="title">-Abhishek Verma</h1>
+
+      </div>
+      
+    <p style="text-align: left;">
+        -Mr. Verma is the creator, founder, president, inventor, CEO and hero of Verma Air.
+         He has been dedicated to quality flight since he reinvented the flight industry. 
+        He once parrallel parked an aircraft carrier during a hurrican while negotiating world peace. 
+        Mr. Verma reverse-engineered his brain to make it run faster and discovered a new law of physics.
+        He codes in languages that don't exist yet. The pilots are VermaAir don't train they just watch him land once.
+      <br>  "Airline CEOs whisper his name when their stocks drop." -Time Magazine
+      <br> "He doesn’t fly first class—he invented it." -Forbes
+      <br>   "Nah, he's the goat for real!" - Lebron James
+    </p>
+
+
+
+</section>
+
+
+<section class="Reviews" id="Reviews">
+    <h1 style="text-align: center;">Reviews</h1>
+
+    <div    class="star-container">
+        <span class="star" data-value="1"></span>
+        <span class="star" data-value="2"></span>
+        <span class="star" data-value="3"></span>
+        <span class="star" data-value="4"></span>
+        <span class="star" data-value="5"></span>
+    </div>
+
+
+    <div class="testimonials-container">
+        <div class="testimonial">
+            <p>"I boarded the plane with a carry-on and left with emotional healing. The pilot didn’t fly the plane—he conducted a symphony in the sky."</p>
+            <p>- Julia R.</p>
+        </div>
+        <div class="testimonial">
+            <p>"Mid-flight, the CEO himself walked down the aisle and personally solved my fear of flying with a TED Talk and a glass of sparkling ambition."</p>
+            <p>- Kailie H.</p>
+        </div>
+        <div class="testimonial">
+            <p>"I asked for peanuts. They handed me inner peace."</p>
+            <p>- AJ P.</p>
+        </div>
+        <div class="testimonial">
+            <p>"I ordered coffee. They handed me existential clarity in a cup."</p>
+            <p>- Izzy</p>
+        </div>
+        <div class="testimonial">
+            <p>"The meal was so gourmet I forgot I was on a plane. Thought I was in Paris. Turns out we were over Ohio."</p>
+            <p>- Valerie C.</p>
+        </div>
+        <div class="testimonial">
+            <p>"The seatbelt sign was on, but I realized I didn’t need a seatbelt—this airline is a metaphor for freedom."</p>
+            <p>- John T.</p>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<section id="Contact" style = "height: 40vh">
+    <h1 class="title">Contact Us</h1>
+    <div class="contact-info-upper-container">
+      <div class="contact-info-container">
+        <img
+          src="email.png"
+          alt="Email icon"
+          class="icon contact-icon email-icon"
+        />
+        <p><a href="mailto:aj@asteme.com">Vermaair@fly.com</a></p>
+      </div>
+      <div class="contact-info-container">
+        <img
+          src="call-icon-2048x2048-9fglrllu.png"
+          alt="LinkedIn icon"
+          class="icon contact-icon"
+        />
+        <p><a href="tel:3103391628">1-800-Air</a></p>
+      </div>
+    </div>
+  </section>
+
+
+
+<footer style="margin-bottom: 0%;">
+<p>Group 4™</p> <p> 2025 All Rights Reserved</p>
+</footer>
+
+
+<button class="btn btn-color-2" style="font-size: 1.1em; padding: 18px 30px; min-width: 180px;" 
+onclick="window.open('/manager', '_blank')">
+Admin Mode
+</button>
+
+
+
+ <script src="script.js"></script>
+</body>
+</html>
+

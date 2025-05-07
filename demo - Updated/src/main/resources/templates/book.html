@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><title>Avaliable Flights</title>
+    <h1>Book a Flight</h1>
+    <form action="/book" method="get" style = "margin-bottom: 20px;">
+        <!-- Button to sort by destination -->
+        <button type="submit" name="sort" value="destination">Sort by Destination</button>
+        
+        <!-- Button to sort by origin -->
+        <button type="submit" name="sort" value="origin">Sort by Origin</button>
+        <button type="submit" name="sort" value="FlightID">Sort by Flight ID</button>
+        <button type="submit" name="sort" value="departureTime">Sort by Departure Time</button>
+        <button type="submit" name="sort" value="cost">Sort by Cost</button>
+    </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Book</th>
+                <th>Flight ID</th>
+                <th>Flight Number</th>
+                <th>Origin</th>
+                <th>Destination</th>
+                <th>Seats Available</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
+                <th>Date<br>yyyy-mm-dd</th>
+                <th>Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="flight : ${flights}">
+                <td>
+                    <form th:action="@{/book/{id}(id=${flight.flightID})}" method="get">
+                        <button type="submit">Book</button>
+                    </form>
+                </td>
+                <td th:text="${flight.flightID}"></td>
+                <td th:text="${flight.flightNumber}"></td>
+                <td th:text="${flight.origin}"></td>
+                <td th:text="${flight.destination}"></td>
+                <td th:text="${flight.seatsAvail}"></td>
+                <td th:text="${flight.departureTime}"></td>
+                <td th:text="${flight.arrivalTime}"></td>
+                <th th:text="${flight.date}"></th>
+                <td th:text="'$' + ${flight.cost}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <style>
+        table 
+        {
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+        }
+        td {
+    padding: 10px;
+}
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f8ff;
+            margin: 0;
+            padding: 40px;
+            text-align: center;
+        }
+        h1 {
+            color: #003366;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head><body><p>Use this page to search and book your flight.</p></body></html>

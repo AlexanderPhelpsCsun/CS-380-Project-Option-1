@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Booking Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #e6f0ff;
+            padding: 2rem;
+            color: #003366;
+        }
+        .details {
+            display: inline-block;
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Booking Confirmed!</h2>
+
+<div class="details">
+    <p><strong>Flight Number:</strong> <span th:text="${flight.flightNumber}"></span></p>
+    <p><strong>Origin:</strong> <span th:text="${flight.origin}"></span></p>
+    <p><strong>Destination:</strong> <span th:text="${flight.destination}"></span></p>
+    <p><strong>Departure:</strong> <span th:text="${flight.departureTime}"></span></p>
+    <p><strong>Arrival:</strong> <span th:text="${flight.arrivalTime}"></span></p>
+</div>
+
+<br>
+<button th:onclick="'window.location.href=\'/account\''">account</button>
+</body>
+
+</html>

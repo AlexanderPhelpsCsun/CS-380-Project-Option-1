@@ -39,6 +39,29 @@
 </head>
 <body>
     <h1>Login</h1>
+
+    <a th:href="@{/}" class="btn oval-btn">Back to Main</a>
+
+<style>
+.oval-btn {
+  display: inline-block;
+  padding: 10px 30px;
+  background-color: #d0dfd0;  
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;      
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.oval-btn:hover {
+  background-color: #dfece0; 
+}
+</style>
+<br>
     <form action="/login" method="post">
         <input name="email" placeholder="Email" required/><br>
         <input name="password" placeholder="Password" type="password" required />

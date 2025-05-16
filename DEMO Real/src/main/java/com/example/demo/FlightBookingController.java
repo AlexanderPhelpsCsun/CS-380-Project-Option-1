@@ -99,12 +99,15 @@ public class FlightBookingController {
     public String showBookingForm(@PathVariable("id") int id, Model model, HttpSession session) 
     {
 
-        Boolean isLoggedIn = (Boolean) session.getAttribute("isLoggedIn");
+        Object isLoggedIn  = session.getAttribute("isLoggedIn");
+        System.out.println("Accessing /book/" + id + ", isLoggedIn = " + isLoggedIn);
 
-        if(isLoggedIn == null || !isLoggedIn)
-        {
+        System.out.println("Session isLoggedIn = " + isLoggedIn);
+
+        if (isLoggedIn == null || !"true".equalsIgnoreCase(isLoggedIn.toString())) {
             return "redirect:/login";
         }
+    
 
 
         model.addAttribute("flightID", id);
@@ -122,6 +125,15 @@ public String handleLogin(@RequestParam("email") String email,
                           @RequestParam("password") String password,
                           Model model,
                           HttpSession session) {
+                            session.setAttribute("isLoggedIn", Boolean.TRUE);
+                            session.setAttribute("userEmail", email);
+                            
+                            
+                            System.out.println("Login successful. isLoggedIn in session = " + session.getAttribute("isLoggedIn"));
+                         session.setAttribute("isLoggedIn", Boolean.TRUE);
+session.setAttribute("userEmail", email);
+
+System.out.println("Login successful. isLoggedIn in session = " + session.getAttribute("isLoggedIn"));   
     try (BufferedReader reader = new BufferedReader(new FileReader(accountsFilePath))) {
         String line;
         while ((line = reader.readLine()) != null) {
@@ -142,10 +154,24 @@ public String handleLogin(@RequestParam("email") String email,
                 if (inputHash.equals(storedHash)) {
                     session.setAttribute("isLoggedIn", true);
                     session.setAttribute("userEmail", email);
-                    return "redirect:/book";
-                } else {
+                
+                    // ✅ Fix: Add account to memory
+                    Account existing = database.findAccount(email);
+                    if (existing == null) {
+                        Account acc = new Account();
+                        acc.setEmail(email);
+                        acc.setpasswordHash(storedHash);
+                        database.addAccount(acc);
+                    }
+                
+                    System.out.println("redirecting to account");
+                    System.out.println("Session ID on login: " + session.getId());
+                    return "redirect:/account";
+                }
+                else {
                     model.addAttribute("error", "Invalid credentials.");
-                    System.out.println("failed doubleHashedInput = "+doubleHashedInput + " storedHash = " + storedHash);
+                    System.out.println("failed hash = "+ inputHash + " storedHash = " + storedHash);
+                    System.out.println("Session ID on login: " + session.getId());
                     return "login";
                 }
             }
@@ -279,9 +305,7 @@ public String showAccountPage(HttpSession session, Model model) {
     }
 
     Account account = database.findAccount(email);
-    if (account == null) {
-        return "redirect:/login";
-    }
+ 
 
     ArrayList<Flight> bookedFlight = account.getTickets();  
 

@@ -4,6 +4,29 @@
     <title>Account Info</title>
 </head>
 <body>
+    <a th:href="@{/}" class="btn oval-btn">Back to Main</a>
+
+<style>
+.oval-btn {
+  display: inline-block;
+  padding: 10px 30px;
+  background-color: #d0dfd0;  
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;      
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.oval-btn:hover {
+  background-color: #dfece0; 
+}
+</style>
+<br>
+
     <h1 style="text-align: center;">Account Details</h1>
     <p><strong>Name:</strong> <span th:text="${account.name}"></span></p>
     <p><strong>Email:</strong> <span th:text="${account.email}"></span></p>

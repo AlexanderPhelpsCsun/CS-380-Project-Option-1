@@ -2,6 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><title>Avaliable Flights</title>
     <h1>Book a Flight</h1>
+    <a th:href="@{/}" class="btn oval-btn">Back to Main</a>
+
+<style>
+.oval-btn {
+  display: inline-block;
+  padding: 10px 30px;
+  background-color: #d0dfd0;  
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;      
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.oval-btn:hover {
+  background-color: #dfece0; 
+}
+</style>
+<br>
     <form action="/book" method="get" style = "margin-bottom: 20px;">
         <!-- Button to sort by destination -->
         <button type="submit" name="sort" value="destination">Sort by Destination</button>

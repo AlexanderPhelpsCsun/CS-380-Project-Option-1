@@ -1,10 +1,16 @@
 package com.example.demo;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +26,8 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class FlightBookingController {
 
+    @Value("${accounts.file.path}")
+    private String accountsFilePath;
     List<Flight> flights = FlightHelper.getAvailableFlights();
     
     @PostMapping("/remove-flight")
@@ -104,46 +112,62 @@ public class FlightBookingController {
     }
 
 
-
-
-
     @GetMapping("/login")
     public String loginPage(Model model) {
-        
+       
         return "login";  
     }
     @PostMapping("/login")
-    public String handleLogin(@RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpSession session) {
-        Account account = database.findAccount(email);  // Find account by email
-    
-        if (account == null) {
-            model.addAttribute("error", "Account not found.");
-            System.out.print("accountnow found\n");
-            return "login"; 
-        }
-    
-        try {
-            // Hash the entered plain-text password
-            String inputHash = Account.hash(password);
-            String doubleHashedInput = Account.hash(inputHash); //not efficient but i dont wanna find the bug
+public String handleLogin(@RequestParam("email") String email,
+                          @RequestParam("password") String password,
+                          Model model,
+                          HttpSession session) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(accountsFilePath))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            // Parse line
+            if (!line.contains("Email:") || !line.contains("Hashed Password:")) continue;
 
-            //inputHash = Account.hash(password);
-    
+            String[] parts = line.split(",");
+            if (parts.length < 2) continue;
 
-            if (doubleHashedInput.equals(account.getpasswordHash())) {
-                // Login successful, redirect to book page or dashboard
-                session.setAttribute("isLoggedIn", true);
-                session.setAttribute("userEmail", email);
-                return "redirect:/book";  // Redirect to your desired page
-            } else {
-                model.addAttribute("error", "Invalid credentials.");
-                return "login";  // Invalid password, stay on login page
+            String storedEmail = parts[0].replace("Email:", "").trim();
+            String storedHash = parts[1].replace("Hashed Password:", "").trim();
+
+            // Compare emails
+            if (storedEmail.equals(email)) {
+                String inputHash = Account.hash(password);
+                String doubleHashedInput = Account.hash(inputHash);
+
+                if (inputHash.equals(storedHash)) {
+                    session.setAttribute("isLoggedIn", true);
+                    session.setAttribute("userEmail", email);
+                    return "redirect:/book";
+                } else {
+                    model.addAttribute("error", "Invalid credentials.");
+                    System.out.println("failed doubleHashedInput = "+doubleHashedInput + " storedHash = " + storedHash);
+                    return "login";
+                }
             }
-        } catch (NoSuchAlgorithmException e) {
-            model.addAttribute("error", "An error occurred during login.");
-            return "login";  // Stay on login page in case of error
         }
+    } catch (IOException | NoSuchAlgorithmException e) {
+        model.addAttribute("error", "An error occurred during login.");
+        return "login";
     }
+
+    model.addAttribute("error", "Account not found.");
+    return "login";
+}
+
+
+
+
+
+
+
+
+
+    
 
 
 
@@ -166,7 +190,14 @@ public class FlightBookingController {
             String hashedPassword = Account.hash(account.getPassword());
             account.setpasswordHash(hashedPassword);  // Store the hashed password
             database.addAccount(account);  // Store the account in the database
-            return "redirect:/login";
+            
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(accountsFilePath, true))) {
+            writer.write("Email: " + account.getEmail() + ", Hashed Password: " + hashedPassword);
+            writer.newLine();
+        } catch (IOException e) {
+            System.err.println("Failed to write account info to file: " + e.getMessage());
+        }
+        return "redirect:/login";
         } catch (NoSuchAlgorithmException e) {
             model.addAttribute("error", "Signup failed.");
             return "signup";
@@ -273,7 +304,7 @@ public String cancelFlight(@RequestParam String flightNumber, HttpSession sessio
 
     if (account != null) {
         account.getTickets().removeIf(flight -> flight.getFlightNumber().equals(flightNumber));
-        database.addAccount(account); // update saved data (replace with updateAccount if you have one)
+        database.addAccount(account); 
     }
 
     return "redirect:/account";

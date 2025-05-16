@@ -12,7 +12,13 @@ public class Account {
     String passwordHash;
     ArrayList<Flight> tickets = new ArrayList<>();
 
+    public Account() {
+    }
 
+    public Account(String email, String passwordHash) {
+        this.email = email;
+        this.passwordHash = passwordHash;
+    }
     public String getPassword() {
         return password;
     }

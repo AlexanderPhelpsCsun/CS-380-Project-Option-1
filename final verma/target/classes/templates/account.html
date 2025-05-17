@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Account Info</title>
+</head>
+<body>
+    <a th:href="@{/}" class="btn oval-btn">Back to Main</a>
+
+<style>
+.oval-btn {
+  display: inline-block;
+  padding: 10px 30px;
+  background-color: #d0dfd0;  
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;      
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.oval-btn:hover {
+  background-color: #dfece0; 
+}
+</style>
+<br>
+
+    <h1 style="text-align: center;">Account Details</h1>
+    <p><strong>Name:</strong> <span th:text="${account.name}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${account.email}"></span></p>
+    <h3>Your Booked Flights</h3>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;" th:if="${account.tickets != null}">
+        <div th:each="flight : ${account.tickets}">
+            <div class="details" style="border: 2px solid black; padding: 10px; margin-bottom: 10px;">
+                <form th:action="@{/cancel-flight}" method="post">
+                    <button type="submit" name="flightNumber" th:value="${flight.flightNumber}" 
+                            th:text="'Cancel Flight: ' + ${flight.flightNumber}"></button>
+                </form>
+                <p><strong>Flight Number:</strong> <span th:text="${flight.flightNumber}"></span></p>
+                <p><strong>Origin:</strong> <span th:text="${flight.origin}"></span></p>
+                <p><strong>Destination:</strong> <span th:text="${flight.destination}"></span></p>
+                <p><strong>Departure:</strong> <span th:text="${flight.departureTime}"></span></p>
+                <p><strong>Arrival:</strong> <span th:text="${flight.arrivalTime}"></span></p>
+                <img src="websiteQRCode_noFrame.png" alt="Barcode" style = "height: 300px;">
+                
+                <br>
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+</html>

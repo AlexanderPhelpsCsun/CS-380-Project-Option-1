@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manager Dashboard</title>
+</head>
+<body>
+    <h1>Manager Dashboard</h1>
+    
+    <p><strong>Total Revenue from current tickets:</strong> 
+        <span th:text="${#numbers.formatCurrency(revenue)}"></span>
+    </p>
+
+    <table border="1">
+        <tr>
+            <th>Flight ID</th>
+            <th>Flight Number</th>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Action</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="flight, iter : ${flights}">
+            <td th:text="${flight.flightID}"></td>
+            <td th:text="${flight.flightNumber}"></td>
+            <td th:text="${flight.origin}"></td>
+            <td th:text="${flight.destination}"></td>
+            <td>
+                <form th:action="@{/remove-flight}" method="post">
+                    <input type="hidden" name="pflightID" th:value="${iter.index}" />
+                    <button type="submit">Remove Flight</button>
+                </form>
+            </td>
+            <td>
+            <form th:action="@{/change-cost}" method="post">
+                <input type="hidden" name="flightID" th:value="${flight.flightID}" />
+                <input type="number" name="newCost" placeholder="New Cost" required />
+                <button type="submit">Change Cost</button>
+            </form>
+        </td>
+        </tr>
+    </table>
+</body>
+</html>
